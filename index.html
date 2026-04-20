@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>仲夏自己 x 乡村美育数据库</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --header-bg: #1a3a4a;
+    --header-text: #e8e4dc;
+    --gradient-start: #6a8ea0;
+    --gradient-mid: #a8bfc8;
+    --gradient-end: #e8dfd0;
+    --text-primary: #1a1a1a;
+    --text-secondary: #3a3a3a;
+    --nav-hover: #c8d8e0;
+    --accent: #2a5a6a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+    color: var(--text-primary);
+    min-height: 100vh;
+    background: linear-gradient(160deg, var(--gradient-start) 0%, var(--gradient-mid) 35%, var(--gradient-end) 100%);
+    background-attachment: fixed;
+  }
+
+  /* === HEADER / NAV === */
+  header {
+    background: var(--header-bg);
+    padding: 0 48px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .logo-icons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* LOGO PLACEHOLDERS — replace with your actual logo files */
+  .logo-img {
+    height: 36px;
+    width: auto;
+    object-fit: contain;
+    opacity: 0.92;
+  }
+
+  .logo-placeholder {
+    height: 36px;
+    width: 36px;
+    border: 2px dashed rgba(232, 228, 220, 0.4);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    color: rgba(232, 228, 220, 0.5);
+    font-family: 'Noto Sans SC', sans-serif;
+  }
+
+  .site-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--header-text);
+    letter-spacing: 2px;
+    white-space: nowrap;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+  }
+
+  nav a {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--header-text);
+    text-decoration: none;
+    letter-spacing: 1px;
+    transition: color 0.25s ease;
+    white-space: nowrap;
+  }
+
+  nav a:hover { color: var(--nav-hover); }
+
+  .lang-toggle {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 14px;
+    color: var(--header-text);
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 6px;
+    padding: 6px 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.2s;
+    user-select: none;
+  }
+
+  .lang-toggle:hover { background: rgba(255,255,255,0.2); }
+
+  .lang-toggle svg {
+    width: 12px;
+    height: 12px;
+    fill: var(--header-text);
+    transition: transform 0.25s;
+  }
+
+  /* === MAIN CONTENT === */
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 72px 48px 120px;
+  }
+
+  .page-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 48px;
+    line-height: 1.3;
+  }
+
+  .content-block { margin-bottom: 40px; }
+
+  .content-block p {
+    font-size: 17px;
+    line-height: 2;
+    color: var(--text-secondary);
+    text-align: justify;
+    font-weight: 400;
+  }
+
+  /* === COLLECTION CARDS === */
+  .collections {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 64px;
+  }
+
+  .collection-card {
+    background: rgba(255,255,255,0.35);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 12px;
+    padding: 36px 32px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .collection-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(26, 58, 74, 0.12);
+  }
+
+  .collection-card h3 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--accent);
+  }
+
+  .collection-card p {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--text-secondary);
+  }
+
+  /* === FOOTER === */
+  footer {
+    background: var(--header-bg);
+    padding: 32px 48px;
+    text-align: center;
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 13px;
+    color: rgba(232, 228, 220, 0.6);
+    letter-spacing: 1px;
+  }
+
+  /* === MOBILE === */
+  @media (max-width: 768px) {
+    header {
+      padding: 16px 20px;
+      height: auto;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    nav { gap: 16px; flex-wrap: wrap; }
+    nav a { font-size: 13px; }
+    main { padding: 40px 24px 80px; }
+    .page-title { font-size: 30px; margin-bottom: 32px; }
+    .content-block p { font-size: 15px; }
+    .collections { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-left">
+    <div class="logo-icons">
+      <!--
+        ★ LOGO PLACEHOLDERS ★
+        When you have your logos, replace each placeholder div with:
+        <img class="logo-img" src="assets/logo1.png" alt="穿越麦地">
+        <img class="logo-img" src="assets/logo2.png" alt="仲夏自己">
+      -->
+      <div class="logo-placeholder">Logo1</div>
+      <div class="logo-placeholder">Logo2</div>
+    </div>
+    <span class="site-title" data-zh="仲夏自己 x 乡村美育数据库" data-en="Let Summer Be x Rural Arts Education Archive">仲夏自己 x 乡村美育数据库</span>
+  </div>
+
+  <nav>
+    <a href="#midsummer" data-zh="仲夏自己" data-en="Midsummer">仲夏自己</a>
+    <a href="#fieldwork" data-zh="田野调查记录" data-en="Fieldwork">田野调查记录</a>
+    <a href="#artworks" data-zh="艺术作品" data-en="Artworks">艺术作品</a>
+    <a href="#resources" data-zh="乡村美育资源" data-en="Resources">乡村美育资源</a>
+    <div class="lang-toggle" id="langToggle" onclick="toggleLanguage()">
+      <span id="langLabel">ZH</span>
+      <svg viewBox="0 0 12 12"><path d="M3 5l3 3 3-3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+    </div>
+  </nav>
+</header>
+
+<!-- MAIN CONTENT -->
+<main>
+  <h1 class="page-title" data-zh="关于我们" data-en="About Us">关于我们</h1>
+
+  <div class="content-block">
+    <p data-zh="「仲夏自己」乡村美育数字档案库，是「穿越麦地」美育团队为云南乡村儿童撰写的纵向质性报告（QLR: qualitative longitudinal studies）。在唯成绩论的教育评价体制下，「仲夏自己」致力于关注乡村儿童被忽视的成长轨迹。"
+       data-en="The 'Let Summer Be' Rural Arts Education Digital Archive is a qualitative longitudinal research (QLR) project by the 'Crossing the Wheat Field' arts education team, documenting the growth of rural children in Yunnan. In a test-score-driven education system, 'Let Summer Be' is dedicated to the overlooked developmental journeys of rural children.">
+      「仲夏自己」乡村美育数字档案库，是「穿越麦地」美育团队为云南乡村儿童撰写的纵向质性报告（QLR: qualitative longitudinal studies）。在唯成绩论的教育评价体制下，「仲夏自己」致力于关注乡村儿童被忽视的成长轨迹。
+    </p>
+  </div>
+
+  <div class="content-block">
+    <p data-zh="在受访者知情同意的前提下，向孩子本人、家长、学校以及公众展现受访儿童在a) 兴趣爱好、b) 性格特征与心理健康、c) 社会行为、d) 外部环境（侧重于学校、家庭的教育方式与社会的教育政策）这四个维度的发展轨迹。通过整理「穿越麦地」在云南高黎贡山与乡村儿童接触的珍贵一手信息，我们在微观层面上进行质性观察和量化数据分析，尝试看清中国乡村教育短缺的宏观问题。在严格遵守人类学调研伦理守则与法律规定的基础上，「仲夏自己」开源档案库将抛砖引玉，为关注中国乡村教育的公益组织和研究者提供一个比较资源。"
+       data-en="With informed consent from all participants, we present each child's developmental trajectory across four dimensions: a) interests and hobbies, b) personality traits and mental health, c) social behavior, and d) external environment (focusing on school and family education methods and social education policies). By organizing the invaluable first-hand information from 'Crossing the Wheat Field's' work with rural children in Yunnan's Gaoligong Mountains, we conduct micro-level qualitative observations and quantitative data analysis to understand the macro-level challenges of rural education in China. In strict adherence to anthropological research ethics and legal requirements, the 'Let Summer Be' open-source archive aims to serve as a comparative resource for NGOs and researchers focused on rural education in China.">
+      在受访者知情同意的前提下，向孩子本人、家长、学校以及公众展现受访儿童在a) 兴趣爱好、b) 性格特征与心理健康、c) 社会行为、d) 外部环境（侧重于学校、家庭的教育方式与社会的教育政策）这四个维度的发展轨迹。通过整理「穿越麦地」在云南高黎贡山与乡村儿童接触的珍贵一手信息，我们在微观层面上进行质性观察和量化数据分析，尝试看清中国乡村教育短缺的宏观问题。在严格遵守人类学调研伦理守则与法律规定的基础上，「仲夏自己」开源档案库将抛砖引玉，为关注中国乡村教育的公益组织和研究者提供一个比较资源。
+    </p>
+  </div>
+
+  <!-- COLLECTION CARDS -->
+  <div class="collections">
+    <a href="#midsummer" class="collection-card" id="midsummer">
+      <h3 data-zh="仲夏自己" data-en="Midsummer">仲夏自己</h3>
+      <p data-zh="纵向质性研究档案，记录乡村儿童的成长轨迹与发展历程。" data-en="Longitudinal qualitative research archive documenting rural children's growth trajectories.">纵向质性研究档案，记录乡村儿童的成长轨迹与发展历程。</p>
+    </a>
+    <a href="#fieldwork" class="collection-card" id="fieldwork">
+      <h3 data-zh="田野调查记录" data-en="Fieldwork Records">田野调查记录</h3>
+      <p data-zh="实地调研笔记、访谈记录与观察日志。" data-en="Field research notes, interview records, and observation logs.">实地调研笔记、访谈记录与观察日志。</p>
+    </a>
+    <a href="#artworks" class="collection-card" id="artworks">
+      <h3 data-zh="艺术作品" data-en="Artworks">艺术作品</h3>
+      <p data-zh="乡村儿童在美育活动中创作的艺术作品集。" data-en="Art collections created by rural children during arts education activities.">乡村儿童在美育活动中创作的艺术作品集。</p>
+    </a>
+    <a href="#resources" class="collection-card" id="resources">
+      <h3 data-zh="乡村美育资源" data-en="Education Resources">乡村美育资源</h3>
+      <p data-zh="面向公益组织和研究者的开源教育资源与工具。" data-en="Open-source educational resources and tools for NGOs and researchers.">面向公益组织和研究者的开源教育资源与工具。</p>
+    </a>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <span data-zh="© 2026 穿越麦地 x 仲夏自己 — 乡村美育数字档案库" data-en="© 2026 Crossing the Wheat Field x Let Summer Be — Rural Arts Education Digital Archive">© 2026 穿越麦地 x 仲夏自己 — 乡村美育数字档案库</span>
+</footer>
+
+<script>
+  let currentLang = 'zh';
+
+  function toggleLanguage() {
+    currentLang = currentLang === 'zh' ? 'en' : 'zh';
+
+    // Update button label
+    document.getElementById('langLabel').textContent = currentLang.toUpperCase();
+
+    // Update html lang attribute
+    document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
+
+    // Swap all translatable elements
+    document.querySelectorAll('[data-zh][data-en]').forEach(function(el) {
+      el.textContent = el.getAttribute('data-' + currentLang);
+    });
+  }
+</script>
+
+</body>
+</html>
